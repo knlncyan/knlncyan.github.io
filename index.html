@@ -5,13 +5,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/default.css">
   <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
-  <meta name="description" content="你发现了一个私人博客网站，也许这里有一些神奇的东西">
+  <meta name="description" content="你发现了一个私人博客网站，也许这里有一些神奇的东西，不想学框架的我决定自己随便写一个">
   <meta name="keywords" content="计算机、IT技术、设计师">
   <title>knlncyan</title>
+  <script>
+    
+  </script>
 </head>
 <body>
   <div class="box">
+    <span id="cover"></span>
     <span id="a0"></span>
     <span id="a1"></span>
     <span id="a2"></span>
@@ -19,24 +24,130 @@
     <span id="a4"></span>
   </div>
 
+  <div class="tab">
+    <div class="backgroundChange">
+      <div class="lightButton">
+        <input type="checkbox" id="light">
+        <label for="light"></label>
+      </div>
+    </div>
+  </div>
 
-<div></div>
+  <div class="page">
+    <div class="control"></div>
+    <span class="play"></span>
+    <span class="unplay"></span>     
+    <img src="./img/image/1.jpg" alt="加载中" class="ico">
+  </div>
+
+  <div class="text">
+    <h3>welcome to my blog</h3>
+    <br>
+    <p class="text_one">welcome to my blog</p>
+    <a href="#" class="link">e n t e r</a>
+    <p class="text_two">2023-2023 卡诺林纳 &nbsp;.powered by myself</p>
+  </div>
+  <audio src="./asset/localMusic/Please Come Back.mp3" autoplay loop class="music"></audio>
   <script>
-    let key
-    for(let i = 0; i < 5; i++){
-      key = Math.ceil(Math.random()*4) + i*4
-      document.querySelector(`#a${i}`).style.backgroundImage = `url(./img/backgroundImage/${key}.jpg)`
+    /* 全局变量key，可重复使用 */
+    let key = 0
+    let flag
+    let load = true
+    /* 获取必要的DOM */
+    const _check = document.querySelector('.tab .backgroundChange .lightButton #light')
+    const _cover = document.querySelector('.box #cover')
+    const _text = document.querySelector('.text')
+    const ico = document.querySelector('.ico')
+    const play = document.querySelector('.play')
+    const unplay = document.querySelector('.unplay')
+    
+    /* 读取用户数据 */
+    let userDate = JSON.parse(localStorage.getItem('userDate'))
+    /* 没有用户数据创造用户数据 */
+    if (userDate == null) {
+      userDate = {
+        light: 0,
+        music: 0,
+      }
     }
-    console.log(key)
-    setInterval(function() {
-      key++
+    /* 对用户数据进行识别 */
+    if (userDate.light == 1) {
+      _check.checked = 'checked'
+      loadPicture()
+      load = false
+      light()
+    }
+    else {
+      night()
+    }
+    if (userDate.music == 0) {
+      pauseMusic()
+    }
+
+    /* 三个封装好的方法，加载图片，白天模式，黑夜模式 */
+    function loadPicture() {
+      for(let i = 0; i < 5; i++){
+        key = Math.ceil(Math.random()*4) + i*4
+        document.querySelector(`#a${i}`).style.backgroundImage = `url(./img/backgroundImage/${key}.jpg)`
+      }
+      key = 0  //加载完图片后key置为0
+    }
+    function light() {
+      _cover.style.opacity = 0
+      flag = setInterval(function () {
+        key++
       key%=5
       document.querySelector(`#a${key}`).style.opacity = 1
       document.querySelector(`#a${key}`).style.transform = 'scale(1.3)'
       document.querySelector(`#a${(key+4)%5}`).style.opacity = 0
       document.querySelector(`#a${(key+4)%5}`).style.transform = 'scale(1.2)'
-    },3000)
-    
+      },3000)
+      _text.classList.remove('colorChange')
+    }
+    function night() {
+      _cover.style.opacity = 1
+      clearInterval(flag)
+      _text.classList.add('colorChange')
+    }
+    function playMusic() {
+      ico.classList.remove('icoPause')
+      play.style.display = 'none'
+      unplay.style.display = 'block'
+      document.querySelector('.music').play()
+    }
+    function pauseMusic() {
+      ico.classList.add('icoPause')
+      play.style.display = 'block'
+      unplay.style.display = 'none'
+      document.querySelector('.music').pause()
+    }
+    /* 控制背景切换开关，同时更新用户数据 */  
+    _check.addEventListener('click', function(){
+      if (_check.checked) {
+        if (load) {
+          loadPicture()
+          load = false
+        }
+        light()
+        userDate.light = 1
+        localStorage.setItem('userDate',JSON.stringify(userDate))
+      }
+      else {
+        night()
+        userDate.light = 0
+        localStorage.setItem('userDate',JSON.stringify(userDate))
+      }
+    })
+    play.addEventListener('click', function(){
+      playMusic()
+      userDate.music = 1
+      localStorage.setItem('userDate',JSON.stringify(userDate))
+    })
+    unplay.addEventListener('click', function(){
+      pauseMusic()
+      userDate.music = 0
+      localStorage.setItem('userDate',JSON.stringify(userDate))
+    })
   </script>
 </body>
 </html>
