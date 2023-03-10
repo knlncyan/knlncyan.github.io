@@ -15,6 +15,7 @@ body {
   overflow-x: hidden;
 }
 
+/* 滚动条设置 */
  /* 滚动条宽度 */
 ::-webkit-scrollbar {
   width: 8px;

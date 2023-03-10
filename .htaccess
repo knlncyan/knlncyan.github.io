@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+if (!-f $request_filename){
+    set $rule_0 1$rule_0;
+}
+if ($rule_0 = "1"){
+    rewrite ^/([^\.]+)$ /$1.html last;}
