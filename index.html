@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/index.css">
-  <link rel="stylesheet" href="./css/default.css">
+  <link rel="stylesheet" href="./asset/css/index.css">
+  <link rel="stylesheet" href="./asset/css/default.css">
   <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
   <meta name="description" content="你发现了一个私人博客网站，也许这里有一些神奇的东西，不想学框架的我决定自己随便写一个">
   <meta name="keywords" content="计算机、IT技术、设计师">
@@ -44,7 +44,7 @@
     <h3>welcome to my blog</h3>
     <br>
     <p class="text_one">welcome to my blog</p>
-    <a href="#" class="link">e n t e r</a>
+    <a href="./blog/blog.html" class="link">e n t e r</a>
     <p class="text_two">2023-2023 卡诺林纳 &nbsp;.powered by myself</p>
   </div>
   <audio src="./asset/localMusic/Please Come Back.mp3" autoplay loop class="music"></audio>
@@ -87,7 +87,7 @@
     /* 三个封装好的方法，加载图片，白天模式，黑夜模式 */
     function loadPicture() {
       for(let i = 0; i < 5; i++){
-        key = Math.ceil(Math.random()*4) + i*4
+        key = Math.ceil(Math.random()*8) + i*8
         document.querySelector(`#a${i}`).style.backgroundImage = `url(./img/backgroundImage/${key}.jpg)`
       }
       key = 0  //加载完图片后key置为0
