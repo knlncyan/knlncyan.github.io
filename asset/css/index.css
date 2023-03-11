@@ -304,3 +304,27 @@ body {
   color: white;
 }
 
+/* 黑夜小球 */
+#cover div {
+  position: absolute;
+  opacity: 0;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: 5px;
+  animation: opacityChange 6s linear 1;
+}
+
+@keyframes opacityChange {
+  0% {
+    opacity: 0;
+    transform: translate(0%,0%);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-220%,320%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0%,720%);
+  }
+}
